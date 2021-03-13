@@ -415,12 +415,38 @@ a.b-c_d@a.b_    <- 마지막에 밑줄( `_` )
 > a.b-c_d@a.b_  
 
 
-### 5) **허용되지 않는 HTML 구문**
+### 5) **HTML 구문 필터**
 
 ---
+
+- GFM은 태그 필터 확장을 활성화하고, 아래와 같은 HTML 코드를 입력할 때, HTML 태그를 필터링시킨다.
+ - `<title>`
+ - `<textarea>`
+ - <style>
+ - <xmp>
+ - <iframe>
+ - <noembed>
+ - <noframes>
+ - <script>
+ - <plaintext>
+
+- 해당 구문은 필터링을 통해 **열린 꺽쇠(`<`)를 HTML 특수코드인 `&lt`로 바꾼다.**
+- 해당 HTML 구문이 필터링 되는 이유는 Markdown의 문법에서 보았을 때 적절하기 않기 때문이다.
+
+```
+<입력>
 
 <strong> <title> <style> <em>
 
 <blockquote>
   <xmp> is disallowed.  <XMP> is also disallowed.
 </blockquote>
+```
+
+> <출력>
+> 
+> <strong> <title> <style> <em>
+>
+> <blockquote>
+>   <xmp> is disallowed.  <XMP> is also disallowed.
+> </blockquote>
