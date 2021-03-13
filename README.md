@@ -258,9 +258,11 @@ Visit www.commonmark.org/help for more informaion!
 >
 > Visit www.commonmark.org/help for more informaion!
 
-#### 4.1) **주의할 점**
+#### 4.1) **자동 링크 경로 유효성 확인 (주의할 점)**
 
 ---
+
+아래 서술되는 내용은 자동 링크를 사용하는 경우, **링크 유효성 판단에 영향을 주는 요소**들이다. 
 
 **1. 자동 링크 바로 뒤에 문장부호( `?`, `!`, `.`, `,`, `:`, `*`, `_`, `-`, `/` 등)를 붙이면, 링크에 영향을 줄 수 있다.**
 
@@ -276,8 +278,8 @@ Visit www.commonmark.org?a.b.
 > 
 > Visit www.commonmark.org  
 > Visit www.commonmark.org.  
-> Visit www.commonmark.org?a.b. 
-> 위와 같이 자동 링크가 달라지는 모습을 볼 수 있다.
+> Visit www.commonmark.org?a.b.  
+> - 위와 같이 자동 링크가 달라지는 모습을 볼 수 있다.
  
 **2. 자동 링크가 닫는 괄호( `)` )로 끝나는 경우 전체 괄호 개수를 계산한다. 닫는 괄호 개수가 여는 괄호보다 많은 경우 자동 링크와 일치하지 않는 괄호는 무시된다.**
 
@@ -295,10 +297,10 @@ www.google.com/search?q=Markup+(business)))    <- 닫는 괄호가 2개 초과
 > www.google.com/search?q=Markup+(business)  
 > www.google.com/search?q=Markup+(business)))  
 > (www.google.com/search?q=Markup+(business))  
-> (www.google.com/search?q=Markup+(business)
-> 위와 같이 닫는 괄호가 남으면 그냥 둔다. (닫는 괄호가 부족해도 그냥 링크가 된다.)
+> (www.google.com/search?q=Markup+(business)  
+> - 위와 같이 닫는 괄호가 남으면 그냥 둔다. (닫는 괄호가 부족해도 그냥 링크가 된다.)
 
-**단 이 규칙은 자동 링크가 닫는 괄호( `)` )로 끝나지 않으면 적용되지 않습니다. (그냥 링크됨)** 
+**단 이 규칙은 자동 링크가 닫는 괄호( `)` )로 끝나지 않으면 적용되지 않는다. (그냥 링크된다)** 
 
 ```
 <입력>
@@ -310,8 +312,66 @@ www.google.com/search?q=(business))+ok     <- 닫는 괄호가 1개 초과
 > 
 > www.google.com/search?q=(business))+ok
  
-**3. **
+**3. 자동 링크가 세미콜론( `;` )으로 끝나면 자동으로 확인 작업을 거친다.**
 
+- 세미콜론으로 끝난 링크 중 **`&` 뒤에 하나 이상의 영어나 숫자가 오는 경우**, 이 부분은 자동 링크에서 **제외**된다.
+
+```
+<입력>
+
+www.google.com/search?q=commonmark&hl=en      <- 세미콜론(;) 없으니 정상 링크
+www.google.com/search?q=commonmark&hl;        <- 세미콜론으로 끝남 + & 뒤에 hl이 붙음
+```
+
+> <출력>
+> 
+> www.google.com/search?q=commonmark&hl=en  
+> www.google.com/search?q=commonmark&hl;  
+
+**4. 자동 링크 중에 여는 꺽쇠( `<` )가 있는 경우 즉시 자동 링크가 종료된다.
+```
+<입력>
+
+www.commonmark.org/he<lp    <- 여는 꺽쇠 삽입(<)
+www.commonmark.org/he>lp    <- 닫는 꺽쇠 삽입(>)
+```
+
+> <출력>
+> 
+> www.commonmark.org/he<lp  
+> www.commonmark.org/he>lp  
+
+#### 4.2) **확장된 자동 링크 경로 유효성 확인**
+
+---
+
+- 확장된 자동 링크는 `http://``, 또는 ``https://``로 된 링크를 말한다.
+- 이 링크 역시 4.1절에서 서술된 링크 경로 유효성 확인 작업을 거친다.
+
+```
+<입력>
+
+http://commonmark.org                                        <- 기본 사용
+Visit http://commonmark.org to get information!              <- 문장 중간에 사용
+http://commonmark.org.123                                    <- 규칙1 (문장부호 영향)
+(https://encrypted.google.com/search?q=Markup+(business)))   <- 규칙2 (닫는 괄호 개수)
+https://commonmark.org&help/;                                <- 규칙3 (세미콜론과 &)
+http://commonmark.o<rg                                       <- 규칙4 (< 시 바로 링크 종료)
+```
+
+> <출력>
+>
+> http://commonmark.org  
+> Visit http://commonmark.org to get information!  
+> http://commonmark.org.123   
+> (https://encrypted.google.com/search?q=Markup+(business)))  
+> https://commonmark.org&help;  
+> http://commonmark.o<rg    
+
+
+#### 4.3) **자동 링크 경로 유효성 확인 (주의할 점)**
+
+---
 
 ### 5) **허용되지 않는 HTML 구문**
 
