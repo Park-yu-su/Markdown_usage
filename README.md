@@ -234,41 +234,83 @@ new paragraph~~.
 ---
 
 - **자동 링크**는 GFM에서 제공하는 구문으로, **더 많은 조건에서 링크가 인식**되는 기능을 제공한다.
+- 하지만 일반적인 링크 사용에 비해 **제약점이 존재하기 때문에 신중하게 사용**해야 한다.
 
-www.commonmark.org  
-Visit www.commonmark.org/help for more information.  
+```
+<입력>
+
+www.commonmark.org
+```
+
+> <출력>
+> 
+> www.commonmark.org
+ 
+- 자동 링크 앞, 뒤에는 문장이 올 수 있습니다.
+
+```
+<입력>
+
+Visit www.commonmark.org/help for more informaion!
+```
+
+> <출력>
+>
+> Visit www.commonmark.org/help for more informaion!
+
+#### 4.1) **주의할 점**
+
+---
+
+**1. 자동 링크 바로 뒤에 문장부호( `?`, `!`, `.`, `,`, `:`, `*`, `_`, `-`, `/` 등)를 붙이면, 링크에 영향을 줄 수 있다.**
+
+```
+<입력>
+
+Visit www.commonmark.org       <- 원본 
 Visit www.commonmark.org.  
+Visit www.commonmark.org?a.b.  
+```
 
-Visit www.commonmark.org/a.b.  
-www.google.com/search?q=Markup+(business)
+> <출력>
+> 
+> Visit www.commonmark.org  
+> Visit www.commonmark.org.  
+> Visit www.commonmark.org?a.b. 
+> 위와 같이 자동 링크가 달라지는 모습을 볼 수 있다.
+ 
+**2. 자동 링크가 닫는 괄호( `)` )로 끝나는 경우 전체 괄호 개수를 계산한다. 닫는 괄호 개수가 여는 괄호보다 많은 경우 자동 링크와 일치하지 않는 괄호는 무시된다.**
 
-www.google.com/search?q=Markup+(business)))
+```
+<입력>
 
-(www.google.com/search?q=Markup+(business))
+www.google.com/search?q=Markup+(business)      <- 괄호 수 정상
+www.google.com/search?q=Markup+(business)))    <- 닫는 괄호가 2개 초과
+(www.google.com/search?q=Markup+(business))    <- 닫는 괄호가 1개 초과
+(www.google.com/search?q=Markup+(business)     <- 닫는 괄호가 1개 부족
+```
 
-(www.google.com/search?q=Markup+(business)  
-www.google.com/search?q=(business))+ok  
-www.google.com/search?q=commonmark&hl=en
+> <입력>
+>
+> www.google.com/search?q=Markup+(business)  
+> www.google.com/search?q=Markup+(business)))  
+> (www.google.com/search?q=Markup+(business))  
+> (www.google.com/search?q=Markup+(business)
+> 위와 같이 닫는 괄호가 남으면 그냥 둔다. (닫는 괄호가 부족해도 그냥 링크가 된다.)
 
-www.google.com/search?q=commonmark&hl;  
-www.commonmark.org/he<lp  
+**단 이 규칙은 자동 링크가 닫는 괄호( `)` )로 끝나지 않으면 적용되지 않습니다. (그냥 링크됨)** 
 
-http://commonmark.org
+```
+<입력>
 
-(Visit https://encrypted.google.com/search?q=Markup+(business))
+www.google.com/search?q=(business))+ok     <- 닫는 괄호가 1개 초과
+```
 
-a.b-c_d@a.b
-
-a.b-c_d@a.b.
-
-a.b-c_d@a.b-
-
-a.b-c_d@a.b_
-
-hello@mail+xyz.example isn't valid, but hello+xyz@mail.example is.  
-
-
-
+> <출력>
+> 
+> www.google.com/search?q=(business))+ok
+ 
+**3. **
 
 
 ### 5) **허용되지 않는 HTML 구문**
