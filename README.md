@@ -233,6 +233,44 @@ new paragraph~~.
 
 ---
 
+- **자동 링크**는 GFM에서 제공하는 구문으로, **더 많은 조건에서 링크가 인식**되는 기능을 제공한다.
+
+www.commonmark.org  
+Visit www.commonmark.org/help for more information.  
+Visit www.commonmark.org.  
+
+Visit www.commonmark.org/a.b.  
+www.google.com/search?q=Markup+(business)
+
+www.google.com/search?q=Markup+(business)))
+
+(www.google.com/search?q=Markup+(business))
+
+(www.google.com/search?q=Markup+(business)  
+www.google.com/search?q=(business))+ok  
+www.google.com/search?q=commonmark&hl=en
+
+www.google.com/search?q=commonmark&hl;  
+www.commonmark.org/he<lp  
+
+http://commonmark.org
+
+(Visit https://encrypted.google.com/search?q=Markup+(business))
+
+a.b-c_d@a.b
+
+a.b-c_d@a.b.
+
+a.b-c_d@a.b-
+
+a.b-c_d@a.b_
+
+hello@mail+xyz.example isn't valid, but hello+xyz@mail.example is.  
+
+
+
+
+
 ### 5) **허용되지 않는 HTML 구문**
 
 ---
