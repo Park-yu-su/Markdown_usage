@@ -5,7 +5,7 @@ Markdown_usage
 ## **GitHub Flavered Markdown (GFM)**
 위 문서는 Markdown의 추가적인 문법 중 하나인 GFM 중 기존의 Markdown 문법 외에 추가된 내용을 다루는 문서입니다.
 
-### 1) **테이블(Table)**
+## 1) **테이블(Table)**
 
 ---
 
@@ -29,7 +29,7 @@ Markdown_usage
 > | seven | eight | nine |
 > | ten | eleven | twelve |
 
-#### 1.2) **주의할 점**
+### 1.2) **주의할 점**
 
 ---
 
@@ -149,7 +149,7 @@ six
 > | --- | --- |
  
 
-### 2) **작업 목록 항목(Task list items)**
+## 2) **작업 목록 항목(Task list items)**
 
 ---
 
@@ -188,7 +188,7 @@ six
 >   - [x] one-two
 > - [X] two
 
-### 3) **취소선(Strikethrough)**
+## 3) **취소선(Strikethrough)**
 
 ---
 
@@ -209,7 +209,7 @@ printf("Hello world!\n");
 > ~~print("Hello world!\n")~~  
 > printf("Hello world!\n");
 
-#### 3.1) **주의할 점**
+### 3.1) **주의할 점**
 
 ---
 
@@ -229,7 +229,7 @@ new paragraph~~.
 > 
 > new paragraph~~.
 
-### 4) **자동 링크(Autolinks)**
+## 4) **자동 링크(Autolinks)**
 
 ---
 
@@ -258,7 +258,7 @@ Visit www.commonmark.org/help for more informaion!
 >
 > Visit www.commonmark.org/help for more informaion!
 
-#### 4.1) **자동 링크 경로 유효성 확인 (주의할 점)**
+### 4.1) **자동 링크 경로 유효성 확인 (주의할 점)**
 
 ---
 
@@ -341,11 +341,11 @@ www.commonmark.org/he>lp    <- 닫는 꺽쇠 삽입(>)
 > www.commonmark.org/he<lp  
 > www.commonmark.org/he>lp  
 
-#### 4.2) **확장된 자동 링크 경로 유효성 확인**
+### 4.2) **확장된 자동 링크 경로 유효성 확인**
 
 ---
 
-- 확장된 자동 링크는 `http://``, 또는 ``https://``로 된 링크를 말한다.
+- 확장된 자동 링크는 **`http://``, 또는 ``https://``로 된 링크**를 말한다.
 - 이 링크 역시 4.1절에서 서술된 링크 경로 유효성 확인 작업을 거친다.
 
 ```
@@ -369,9 +369,35 @@ http://commonmark.o<rg                                       <- 규칙4 (< 시 �
 > http://commonmark.o<rg    
 
 
-#### 4.3) **자동 링크 경로 유효성 확인 (주의할 점)**
+### 4.3) **확장된 이메일 자동 링크**
 
 ---
+
+- 이메일 주소가 텍스트 노드 내에서 아래 규칙을 따르는 경우 인식된다.
+ 1. 하나 이상의 숫자 또는 문자 또는 문자 부호(`.`, `-`, `_`, `+`)를 포함해야 한다.
+ 2. `@` 기호가 포함되어야 한다.
+ 3. 마침표(`.`)가 있어야 하며, 마지막 문자가 밑줄(`_`) 또는 빼기(`-`) 이면 안 된다.
+- 복잡해 보이지만 사실 **평소에 사용하는 이메일 주소**를 적으면 된다.
+
+```
+<입력>
+
+abcd@gmail.com  
+Hello my email is adbc@gmail.com.  
+```
+
+> <출력>
+>
+> abcd@gmail.com  
+> Hello my email is adbc@gmail.com.  
+
+a.b-c_d@a.b
+
+a.b-c_d@a.b.
+
+a.b-c_d@a.b-
+
+a.b-c_d@a.b_
 
 ### 5) **허용되지 않는 HTML 구문**
 
